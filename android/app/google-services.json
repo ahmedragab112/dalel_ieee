@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719212296918",
+    "project_id": "daleliee",
+    "storage_bucket": "daleliee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719212296918:android:9d49a293c7146ce50ca777",
+        "android_client_info": {
+          "package_name": "com.example.dalelieee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk4g6TskkX_X-wZE4e8LL9VqHSaVsABLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

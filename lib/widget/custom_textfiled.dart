@@ -9,16 +9,18 @@ class CustomTextFiled extends StatelessWidget {
     this.type = TextInputType.text,
     this.obscureText = false,
     this.suffix,
-    this.prefixIcon,
+    this.prefixIcon, required this.controller,
   });
   final String lableText;
   final TextInputType type;
   final Widget? prefixIcon;
   final Widget? suffix;
   final bool obscureText;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       obscureText: obscureText,
       keyboardType: type,
       style: GoogleFonts.poppins(

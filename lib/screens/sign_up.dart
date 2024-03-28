@@ -1,11 +1,12 @@
-import 'dart:developer';
-
+import 'package:dalelieee/cubit/auth_cubit.dart';
 import 'package:dalelieee/screens/login.dart';
 import 'package:dalelieee/widget/already_have_account.dart';
 import 'package:dalelieee/widget/custom_button.dart';
+import 'package:dalelieee/widget/custom_cubit_lister.dart';
 import 'package:dalelieee/widget/custom_textfiled.dart';
 import 'package:dalelieee/widget/sign_up_rules.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,11 +19,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  bool changeObsureText = false;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    log(changeObsureText.toString());
+    var cubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -43,33 +45,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               height: 46.h,
             ),
-            const CustomTextFiled(
-                lableText: 'First Name', prefixIcon: Icon(Icons.person)),
-            SizedBox(
-              height: 18.h,
-            ),
-            const CustomTextFiled(
-                lableText: 'Last Name', prefixIcon: Icon(Icons.person)),
-            SizedBox(
-              height: 18.h,
-            ),
-            const CustomTextFiled(
-                lableText: 'Email Address',
-                type: TextInputType.emailAddress,
-                prefixIcon: Icon(Icons.email)),
+            CustomTextFiled(
+                lableText: 'First Name',
+                prefixIcon: const Icon(Icons.person),
+                controller: TextEditingController()),
             SizedBox(
               height: 18.h,
             ),
             CustomTextFiled(
-              prefixIcon: const Icon(Icons.lock),
-              lableText: 'Password',
-              obscureText: changeObsureText,
-              suffix: InkWell(
-                  onTap: () {
-                    changeObsureText = !changeObsureText;
-                    setState(() {});
-                  },
-                  child: const Icon(Icons.visibility, size: 24)),
+              lableText: 'Last Name',
+              prefixIcon: const Icon(Icons.person),
+              controller: TextEditingController(),
+            ),
+            SizedBox(
+              height: 18.h,
+            ),
+            CustomTextFiled(
+              lableText: 'Email Address',
+              type: TextInputType.emailAddress,
+              prefixIcon: const Icon(Icons.email),
+              controller: emailController,
+            ),
+            SizedBox(
+              height: 18.h,
+            ),
+            CustomEye(
+              controller: passwordController,
             ),
             SizedBox(
               height: 16.h,
@@ -80,7 +81,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             CustomButton(
               text: 'SingUp',
-              function: () {},
+              function: () async {
+                await cubit.signUp(
+                  emailController.text,
+                  passwordController.text,
+                );
+              },
             ),
             SizedBox(
               height: 16.h,
@@ -92,6 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Navigator.pushReplacementNamed(context, Login.routeName);
               },
             ),
+            AuthLister()
           ]),
         ),
       ),
